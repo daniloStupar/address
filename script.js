@@ -11,27 +11,41 @@ window.onload = function () {
   const lastName = document.getElementById("lastName");
   const email = document.getElementById("email");
   const phone = document.getElementById("phone");
+
+  //EDIT
+  const editBtn = document.querySelector(".edit");
+  const openEdit = document.querySelector(".addFormEdit");
+  const firstNameEdit = document.getElementById("firstNameEdit");
+  const lastNameEdit = document.getElementById("lastNameEdit");
+  const emailEdit = document.getElementById("emailEdit");
+  const phoneEdit = document.getElementById("phoneEdit");
+
   // CREATE DIV
   const addBookDiv = document.querySelector(".addbook");
 
   // DISPLAY FORM
   addPerson.addEventListener("click", function () {
     openAddForm.style.display = "block";
+    overlay.classList.remove("hidden");
   });
 
   cancelBtn.addEventListener("click", function () {
     openAddForm.style.display = "none";
-
-    addForm.addEventListener("click", addToBook);
-
-    addBookDiv.addEventListener("click", removeEntry);
   });
+
+  // editBtn.addEventListener("click", function () {
+  //   openEdit.style.display = "block";
+  // });
+
+  addForm.addEventListener("click", addToBook);
+
+  addBookDiv.addEventListener("click", removeEntry);
+
   // LOCAL STORAGE AND ADDRES BOOK UPDATE
   let addressBook = [];
 
   class jsonStructure {
-    constructor(personID, firstName, lastName, email, phone) {
-      this.id = personID;
+    constructor(firstName, lastName, email, phone) {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
@@ -41,14 +55,12 @@ window.onload = function () {
 
   function addToBook() {
     let isEmpty =
-      personID.value != "" &&
       firstName.value != "" &&
       lastName.value != "" &&
       email.value != "" &&
       phone.value != "";
     if (isEmpty) {
       let obj = new jsonStructure(
-        personID.value,
         firstName.value,
         lastName.value,
         email.value,
@@ -64,7 +76,7 @@ window.onload = function () {
   }
 
   function removeEntry(e) {
-    if (e.target.classListr.contains("delbutton")) {
+    if (e.target.classList.contains("del")) {
       let dataID = e.target.getAttribute("data-id");
       addressBook.splice(dataID, 1);
       localStorage["addbook"] = JSON.stringify(addressBook);
@@ -75,9 +87,18 @@ window.onload = function () {
   function clearForm() {
     let formFields = document.querySelectorAll(".formFields");
     for (let i in formFields) {
-      formFields[i] = "";
+      formFields[i].value = "";
     }
   }
+
+  // let OpEdit;
+  // entry.addEventListener("click", function (e) {
+  //   e.preventDefault();
+  //   const editButton = e.target.closest("edit");
+  //   if (editButton) {
+  //   }
+  // });
+
   function showAddressBook() {
     if (localStorage["addbook"] === undefined) {
       localStorage["addbook"] = "";
@@ -85,22 +106,19 @@ window.onload = function () {
       addressBook = JSON.parse(localStorage["addbook"]);
       addBookDiv.innerHTML = "";
       for (let i in addressBook) {
-        let str = '<div class="entry">';
-        str += '<div class="id"><p>' + addressBook[i].id + "</p></div>";
-        str +=
-          '<div class="firstName"><p>' +
-          addressBook[i].firstName +
-          "</p></div>";
-        str +=
-          '<div class="lastName"><p>' + addressBook[i].lastName + "</p></div>";
-        str += '<div class="email"><p>' + addressBook[i].email + "</p></div>";
-        str += '<div class="phone"><p>' + addressBook[i].phone + "</p></div>";
-        str += '<div class="btns">';
-        str += '<button class="edit">Edit</button>';
-        str += '<button class="del" data-id="' + i + '">Delite</button>';
-        str += "</div>";
-        // str +='<div class="del"><a href="#" class="delbutton" data-id="' + i + '">Delete</a></div>';
-        str += "</div>";
+        let str = `<div class="entry">
+                   <div class="id"><p>${+i + 1}</p></div>  
+                   <div class="firstName"><p>${
+                     addressBook[i].firstName
+                   }</p></div>
+                   <div class="lastName"><p>${addressBook[i].lastName}</p></div>
+                   <div class="email"><p>${addressBook[i].email}</p></div>
+                   <div class="phone"><p>${addressBook[i].phone}</p></div>
+                   <div class="btns">
+                   <button class="edit">Edit</button>
+                   <button class="del" data-id="' + i + '">Delite</button>
+                   </div>
+                   </div>`;
         addBookDiv.innerHTML += str;
       }
     }

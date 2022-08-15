@@ -4,12 +4,47 @@
     <meta charset="UTF-8" />
     <title>AddressBook</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DynaPuff&display=swap"
+      rel="stylesheet"
+    />
     <script src="script.js"></script>
   </head>
   <body>
+    <div class="addForm">
+      <label for="firstName">First name</label
+      ><input type="text" id="firstName" class="formFields" />
+      <label for="lastName">Last name</label
+      ><input type="text" id="lastName" class="formFields" />
+      <label for="email">E-mail</label
+      ><input type="text" id="email" class="formFields" />
+      <label for="phone">Phone</label
+      ><input type="text" id="phone" class="formFields" /> <br /><br />
+      <div class="btnsForm">
+        <button id="Add">Add Now</button><button id="Cancel">Cancel</button>
+      </div>
+    </div>
+
+    <div class="addFormEdit">
+      <label for="firstName">First name</label
+      ><input type="text" id="firstNameEdit" class="formFields" />
+      <label for="lastName">Last name</label
+      ><input type="text" id="lastNameEdit" class="formFields" />
+      <label for="email">E-mail</label
+      ><input type="text" id="emailEdit" class="formFields" />
+      <label for="phone">Phone</label
+      ><input type="text" id="phoneEdit" class="formFields" /> <br /><br />
+      <div class="btnsForm">
+        <button id="Edit">Edit</button><button id="CancelEdit">Cancel</button>
+      </div>
+    </div>
+    <div class="overlay hidden"></div>
     <div class="container">
       <div class="title">
-        <h1>Address Book</h1>
+        <p>Address Book</p>
+
         <button class="addPerson">Add person</button>
       </div>
       <div class="data">
@@ -20,21 +55,9 @@
         <div class="pD">Phone</div>
         <div class="op">Options</div>
       </div>
-      <div class="addForm">
-        <label for="id">ID</label
-        ><input type="text" id="ID" class="formFields" />
-        <label for="firstName">First name</label
-        ><input type="text" id="firstName" class="formFields" />
-        <label for="lastName">Last name</label
-        ><input type="text" id="lastName" class="formFields" />
-        <label for="email">E-mail</label
-        ><input type="text" id="email" class="formFields" />
-        <label for="phone">Phone</label
-        ><input type="text" id="phone" class="formFields" /> <br /><br />
-        <button id="Add">Add Now</button><button id="Cancel">Cancel</button>
-      </div>
+
       <div class="addbook">
-        <div class="entry">
+        <!-- <div class="entry">
           <div class="id"><p>1</p></div>
           <div class="firstName"><p>Danilo</p></div>
           <div class="lastName"><p>Stupar</p></div>
@@ -44,7 +67,7 @@
             <button class="edit">Edit</button>
             <button class="del">Delete</button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </body>

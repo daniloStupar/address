@@ -4,10 +4,14 @@ body {
   background-color: #d9b75e;
 }
 
+html {
+  font-family: "DynaPuff", cursive;
+}
+
 .container {
   position: relative;
   width: 90%;
-  height: 100vh;
+  height: 100%;
   margin: auto;
   padding: 30px;
 }
@@ -25,6 +29,10 @@ body {
   cursor: pointer;
 }
 
+button {
+  font-family: "DynaPuff", cursive;
+}
+
 .title {
   display: flex;
   justify-content: space-between;
@@ -32,8 +40,8 @@ body {
   height: 100px;
 }
 
-.title h1 {
-  font-size: 32px;
+.title p {
+  font-size: 50px;
   margin-right: 100px;
   color: #20242d;
   -webkit-text-fill-color: #d9b75e;
@@ -49,15 +57,48 @@ body {
 
 /* ADD FORME */
 .addForm {
-  height: 50%;
-  padding: 10px;
-  background: rgba(240, 240, 240, 0.466);
+  height: auto;
+  padding: 20px;
+  background: #e6ce93;
   overflow: hidden;
   display: none;
-  width: 50%;
+  width: 30%;
   position: absolute;
   top: 50%;
   left: 50%;
+  border: 3px solid #20242d;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.addFormEdit {
+  height: auto;
+  padding: 20px;
+  background: rgb(240, 240, 240);
+  overflow: hidden;
+  display: none;
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 3px solid #20242d;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.hidden {
+  display: none;
 }
 
 .addForm label {
@@ -78,12 +119,35 @@ body {
   box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
+.addFormEdit label {
+  position: relative;
+  display: block;
+  width: 300px;
+  height: 10px;
+  font-size: 16px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.addFormEdit input {
+  width: 90%;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
 .entry {
   width: 100%;
   height: 60px;
   display: grid;
   grid-template-columns: 5% 15% 15% 30% 15% 20%;
   align-items: center;
+  border-bottom: 1px solid #bf3329;
+}
+
+.entry .entry p {
+  font-size: 18px;
 }
 
 .edit,
@@ -94,11 +158,30 @@ body {
   height: 30px;
   color: #d9b75e;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .btns {
   display: inline-flex;
   gap: 20px;
+}
+
+#Cancel,
+#Add,
+#Edit {
+  background-color: #bf3329;
+  color: #d9b75e;
+  width: 160px;
+  height: 40px;
+  margin-top: 20px;
+  font-weight: bolder;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.btnsForm {
+  display: flex;
+  justify-content: space-around;
 }
 
 .data {
