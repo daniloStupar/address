@@ -4,13 +4,15 @@ window.onload = function () {
   const openAddForm = document.querySelector(".addForm");
   const cancelBtn = document.getElementById("Cancel");
   const addForm = document.getElementById("Add");
-  const edit = document.querySelector(".edit");
+  // const edit = document.querySelector(".edit");
   const tableEl = document.querySelector(".addbook");
   //FORM FIELDS
   const firstName = document.getElementById("firstName");
   const lastName = document.getElementById("lastName");
   const email = document.getElementById("email");
   const phone = document.getElementById("phone");
+
+  let id;
 
   //EDIT
 
@@ -27,10 +29,6 @@ window.onload = function () {
     openAddForm.style.display = "none";
   });
 
-  // editBtn.addEventListener("click", function () {
-  //   openEdit.style.display = "block";
-  // });
-
   addForm.addEventListener("click", addToBook);
 
   addBookDiv.addEventListener("click", removeEntry);
@@ -45,6 +43,15 @@ window.onload = function () {
       this.email = email;
       this.phone = phone;
     }
+  }
+
+  function saveContact(id) {
+    addressBook[id].firstName = firstNameEdit.value;
+    addressBook[id].lastName = lastNameEdit.value;
+    addressBook[id].email = emailEdit.value;
+    addressBook[id].phone = phoneEdit.value;
+    localStorage["addbook"] = JSON.stringify(addressBook);
+    showAddressBook();
   }
 
   function addToBook() {
@@ -77,7 +84,9 @@ window.onload = function () {
       showAddressBook();
     }
   }
-
+  function updateStorage() {
+    localStorage.addressBook = JSON.stringify(addressBook);
+  }
   function clearForm() {
     let formFields = document.querySelectorAll(".formFields");
     for (let i in formFields) {
@@ -85,14 +94,13 @@ window.onload = function () {
     }
   }
   //EDIT FORM
-  const editBtn = document.querySelector(".edit");
   const openEdit = document.querySelector(".addFormEdit");
   const firstNameEdit = document.getElementById("firstNameEdit");
   const lastNameEdit = document.getElementById("lastNameEdit");
   const emailEdit = document.getElementById("emailEdit");
   const phoneEdit = document.getElementById("phoneEdit");
   const CancelEdit = document.querySelector("#CancelEdit");
-  const SaveEdit = document.querySelector("#CancelEdit");
+  const SaveEdit = document.querySelector("#EditS");
 
   CancelEdit.addEventListener("click", function () {
     openEdit.style.display = "none";
@@ -100,19 +108,22 @@ window.onload = function () {
 
   tableEl.addEventListener("click", function (e) {
     e.preventDefault();
-    let id;
     if (e.target.classList.contains("edit")) {
       id = e.target.getAttribute("data-id");
-      console.log(id);
 
       openEdit.style.display = "block";
-      id = editBtn.dataset.id;
-      firstNameEdit.value = addressBook[i].firstName;
-      lastNameEdit.value = addressBook[i].lastName;
-      emailEdit.value = addressBook[i].email;
-      phoneEdit.value = addressBook[i].phone;
-      console.log(editBtn);
+      id = e.target.dataset.id;
+      firstNameEdit.value = addressBook[id].firstName;
+      lastNameEdit.value = addressBook[id].lastName;
+      emailEdit.value = addressBook[id].email;
+      phoneEdit.value = addressBook[id].phone;
     }
+  });
+
+  SaveEdit.addEventListener("click", function (e) {
+    e.preventDefault();
+    openEdit.style.display = "none";
+    saveContact(id);
   });
 
   function showAddressBook() {
