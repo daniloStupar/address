@@ -74,7 +74,7 @@ button {
 .addFormEdit {
   height: auto;
   padding: 20px;
-  background: rgb(240, 240, 240);
+  background: #e6ce93;
   overflow: hidden;
   display: none;
   width: 30%;
@@ -109,6 +109,10 @@ button {
   font-size: 16px;
   padding: 10px;
   font-weight: bold;
+}
+
+.formFields {
+  margin-bottom: 15px;
 }
 
 .addForm input {
@@ -168,7 +172,8 @@ button {
 
 #Cancel,
 #Add,
-#Edit {
+#EditS,
+#CancelEdit {
   background-color: #bf3329;
   color: #d9b75e;
   width: 160px;

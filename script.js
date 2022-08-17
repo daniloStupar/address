@@ -5,20 +5,14 @@ window.onload = function () {
   const cancelBtn = document.getElementById("Cancel");
   const addForm = document.getElementById("Add");
   const edit = document.querySelector(".edit");
+  const tableEl = document.querySelector(".addbook");
   //FORM FIELDS
-  const personID = document.getElementById("ID");
   const firstName = document.getElementById("firstName");
   const lastName = document.getElementById("lastName");
   const email = document.getElementById("email");
   const phone = document.getElementById("phone");
 
   //EDIT
-  const editBtn = document.querySelector(".edit");
-  const openEdit = document.querySelector(".addFormEdit");
-  const firstNameEdit = document.getElementById("firstNameEdit");
-  const lastNameEdit = document.getElementById("lastNameEdit");
-  const emailEdit = document.getElementById("emailEdit");
-  const phoneEdit = document.getElementById("phoneEdit");
 
   // CREATE DIV
   const addBookDiv = document.querySelector(".addbook");
@@ -90,14 +84,36 @@ window.onload = function () {
       formFields[i].value = "";
     }
   }
+  //EDIT FORM
+  const editBtn = document.querySelector(".edit");
+  const openEdit = document.querySelector(".addFormEdit");
+  const firstNameEdit = document.getElementById("firstNameEdit");
+  const lastNameEdit = document.getElementById("lastNameEdit");
+  const emailEdit = document.getElementById("emailEdit");
+  const phoneEdit = document.getElementById("phoneEdit");
+  const CancelEdit = document.querySelector("#CancelEdit");
+  const SaveEdit = document.querySelector("#CancelEdit");
 
-  // let OpEdit;
-  // entry.addEventListener("click", function (e) {
-  //   e.preventDefault();
-  //   const editButton = e.target.closest("edit");
-  //   if (editButton) {
-  //   }
-  // });
+  CancelEdit.addEventListener("click", function () {
+    openEdit.style.display = "none";
+  });
+
+  tableEl.addEventListener("click", function (e) {
+    e.preventDefault();
+    let id;
+    if (e.target.classList.contains("edit")) {
+      id = e.target.getAttribute("data-id");
+      console.log(id);
+
+      openEdit.style.display = "block";
+      id = editBtn.dataset.id;
+      firstNameEdit.value = addressBook[i].firstName;
+      lastNameEdit.value = addressBook[i].lastName;
+      emailEdit.value = addressBook[i].email;
+      phoneEdit.value = addressBook[i].phone;
+      console.log(editBtn);
+    }
+  });
 
   function showAddressBook() {
     if (localStorage["addbook"] === undefined) {
@@ -115,8 +131,8 @@ window.onload = function () {
                    <div class="email"><p>${addressBook[i].email}</p></div>
                    <div class="phone"><p>${addressBook[i].phone}</p></div>
                    <div class="btns">
-                   <button class="edit">Edit</button>
-                   <button class="del" data-id="' + i + '">Delite</button>
+                   <button class="edit" data-id=${i}>Edit</button>
+                   <button class="del" data-id=${i}>Delite</button>
                    </div>
                    </div>`;
         addBookDiv.innerHTML += str;
