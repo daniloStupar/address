@@ -55,20 +55,23 @@ window.onload = function () {
   }
 
   function addToBook() {
-    console.log(errors.firstName.length);
     let isEmpty =
+      firstName.value != "" &&
+      lastName.value != "" &&
+      email.value != "" &&
+      phone.value != "";
+    let hasErrors =
       errors.firstName.length ||
       errors.lastName.length ||
       errors.email.length ||
       errors.phone.length;
-    if (!isEmpty) {
+    if (isEmpty && !hasErrors) {
       let obj = new jsonStructure(
         firstName.value,
         lastName.value,
         email.value,
         phone.value
       );
-      console.log(obj);
       addressBook.push(obj);
       localStorage["addbook"] = JSON.stringify(addressBook);
       openAddForm.style.display = "none";
@@ -170,7 +173,8 @@ window.onload = function () {
       if (inputValeu.length >= 3) {
         errors[inputName] = [];
         switch (inputName) {
-          case ("firstName", "lastName"):
+          case "firstName":
+          case "lastName":
             let validation = inputValeu.length;
             if (validation > 20) {
               errors[inputName].push(
@@ -227,7 +231,7 @@ window.onload = function () {
     return false;
   };
   const validatePhone = (phone) => {
-    if (/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(phone)) {
+    if (/^[0-9]*$/.test(phone)) {
       return true;
     }
     return false;

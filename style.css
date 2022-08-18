@@ -61,7 +61,7 @@ button {
   padding: 20px;
   background: #e6ce93;
   overflow: hidden;
-  /* display: none; */
+  display: none;
   width: 30%;
   position: absolute;
   top: 50%;
