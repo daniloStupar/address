@@ -22,7 +22,7 @@ window.onload = function () {
   // DISPLAY FORM
   addPerson.addEventListener("click", function () {
     openAddForm.style.display = "block";
-    overlay.classList.remove("hidden");
+    // overlay.classList.remove("hidden");
   });
 
   cancelBtn.addEventListener("click", function () {
@@ -55,12 +55,13 @@ window.onload = function () {
   }
 
   function addToBook() {
+    console.log(errors.firstName.length);
     let isEmpty =
-      firstName.value != "" &&
-      lastName.value != "" &&
-      email.value != "" &&
-      phone.value != "";
-    if (isEmpty) {
+      errors.firstName.length ||
+      errors.lastName.length ||
+      errors.email.length ||
+      errors.phone.length;
+    if (!isEmpty) {
       let obj = new jsonStructure(
         firstName.value,
         lastName.value,
@@ -152,4 +153,83 @@ window.onload = function () {
   }
 
   showAddressBook();
+
+  // VALIDATION
+  let inputs = document.querySelectorAll("input");
+  let errors = {
+    firstName: [],
+    lastName: [],
+    email: [],
+    phone: [],
+  };
+  inputs.forEach((element) => {
+    element.addEventListener("change", (e) => {
+      let currentInput = e.target;
+      let inputValeu = currentInput.value;
+      let inputName = currentInput.getAttribute("name");
+      if (inputValeu.length >= 3) {
+        errors[inputName] = [];
+        switch (inputName) {
+          case ("firstName", "lastName"):
+            let validation = inputValeu.length;
+            if (validation > 20) {
+              errors[inputName].push(
+                "Polje ne moze imati vise od 20 karaktera"
+              );
+            }
+            break;
+
+          case "email":
+            if (!validateEmail(inputValeu)) {
+              errors[inputName].push("Neispravna e-mail adresa");
+            }
+            break;
+
+          case "phone":
+            if (!validatePhone(inputValeu)) {
+              errors[inputName].push("Neispravan telefonski broj");
+            }
+            break;
+        }
+      } else {
+        errors[inputName] = ["Polje ne moze imati manje od 3 karaktera"];
+      }
+
+      populateErrors();
+    });
+  });
+  const populateErrors = () => {
+    for (let elem of document.querySelectorAll("ul")) {
+      elem.remove();
+    }
+    for (let key of Object.keys(errors)) {
+      let input = document.querySelector(`input[name="${key}"]`);
+      let parentElement = input.parentElement;
+      let errorsElement = document.createElement("ul");
+      parentElement.appendChild(errorsElement);
+
+      errors[key].forEach((error) => {
+        let li = document.createElement("li");
+        li.innerText = error;
+        errorsElement.appendChild(li);
+      });
+    }
+  };
+
+  const validateEmail = (email) => {
+    if (
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
+      return true;
+    }
+    return false;
+  };
+  const validatePhone = (phone) => {
+    if (/^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(phone)) {
+      return true;
+    }
+    return false;
+  };
 };

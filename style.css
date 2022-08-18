@@ -61,7 +61,7 @@ button {
   padding: 20px;
   background: #e6ce93;
   overflow: hidden;
-  display: none;
+  /* display: none; */
   width: 30%;
   position: absolute;
   top: 50%;
@@ -112,7 +112,7 @@ button {
 }
 
 .formFields {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .addForm input {
@@ -219,4 +219,9 @@ button {
   margin-top: 5px;
   justify-content: space-between;
   align-items: center;
+}
+
+ul li {
+  list-style-type: none;
+  color: #bf3329;
 }
